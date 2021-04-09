@@ -1,4 +1,4 @@
-require_relative './env.rb'
+#require_relative './env.rb'
 
 class API
     attr_accessor :location#, :data
@@ -10,8 +10,7 @@ class API
     def self.get_preflight_data
        res = RestClient.get "https://avwx.rest/api/metar/#{@location}", {:Authorization => ENV["AVWX_KEY"]}
        preflight_data = parse_json(res.body)
-       metar_data = PreFlight.new(preflight_data)
-       #binding.pry 
+       preflight_data 
     end
 
 

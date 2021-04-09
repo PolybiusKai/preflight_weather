@@ -23,6 +23,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    ruby_figlet (0.6.1)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.7)
@@ -36,6 +37,7 @@ DEPENDENCIES
   pry
   require_all
   rest-client
+  ruby_figlet
 
 BUNDLED WITH
    2.2.15

@@ -1,3 +1,5 @@
+#require_relative './env.rb'
+
 class PreFlight
 
     @@all = []
