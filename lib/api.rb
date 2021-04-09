@@ -5,7 +5,6 @@ class API
     
     def self.find_by_location(location)
         @location = location 
-        #@data = data - used for Station, METARS and TAFS selection. 
     end
 
     def self.get_preflight_data
