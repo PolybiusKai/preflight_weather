@@ -9,14 +9,14 @@ class API
 
     def self.get_preflight_data
        res = RestClient.get "https://avwx.rest/api/metar/#{@location}", {:Authorization => ENV["AVWX_KEY"]}
-       parse_json(res.body)
+       preflight_data = parse_json(res.body)
+       metar_data = PreFlight.new(preflight_data)
+       #binding.pry 
     end
 
 
     def self.parse_json(parsed_data)
        preflight_info = JSON.parse(parsed_data)
-       puts preflight_info
-       binding.pry
     end
 end
 

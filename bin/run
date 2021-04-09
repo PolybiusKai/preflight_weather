@@ -3,3 +3,4 @@ require_relative '../lib/env.rb'
 
 API.find_by_location('KLAS')
 API.get_preflight_data
+# binding.pry
