@@ -5,5 +5,5 @@ Bundler.require
 require_rel '../lib'
 require 'dotenv/load'
 require 'ruby_figlet'
-using RubyFiglet
+# using RubyFiglet
 

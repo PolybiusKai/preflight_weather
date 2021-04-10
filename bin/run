@@ -3,3 +3,5 @@ require_relative '../lib/env.rb'
 
 CLI.welcome_msg
 CLI.new.call
+# API.search_by_city("las-vegas")
+# API.get_icao_by_location

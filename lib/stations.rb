@@ -1,5 +1,5 @@
 
-class PreFlight
+class Stations
 
     @@all = []
 
