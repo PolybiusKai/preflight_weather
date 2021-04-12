@@ -1,11 +1,8 @@
 #require_relative './env.rb'
 
 class CLI 
-    attr_accessor :data, :metar_data
-    def initialize
-        data = []
-        metar_data = []
-    end
+    attr_accessor :data, :metar_data, :sky_conditions
+
 
     def call 
         input = ""
@@ -21,67 +18,94 @@ class CLI
                 search_acio_location(x)
                 puts "\n"
                 get_metar_data
+                menu
             when "list airports"
                 list_airports
             when "help"
                 menu
             end
         end
-    end
+    end #/call
     
       def search_acio_location(location)
         API.search_by_icao(location)
       end
     
-      ## TODO - CURRENT
-        # Breakdown raw metar data for easy read. 
       def get_metar_data
         @data = API.get_preflight_data
         @metar_data = PreFlight.new(data)
         raw = metar_data.raw
-        puts "METARS Reading: #{raw}\n\n" 
+        puts "METAR => #{raw}\n\n" 
+        #binding.pry
+        breakdown
+      end #/get_metar_data
+
+      def breakdown
         print "Would you like to see this broken down? y/N "
         response = gets.strip.downcase
-        if response != "n"
+        if response == "y" || response != 'n' 
             metar_breakdown
+        else
+            puts "Please try agian"
+            breakdown 
         end
       end
-
+      
       def metar_breakdown
-        puts "___Full METARS Breakdown___\n\n"
-
         #Metars Breakdown Data
         station = metar_data.station
         time =  metar_data.time["dt"]
-        wind = "Wind Direction: #{metar_data.wind_direction["repr"]}\nWind Speed: #{metar_data.wind_speed["repr"]} #{metar_data.units["wind_speed"]}"
-        visi = metar_data.visibility["repr"] + " " + metar_data.units["visibility"]
+        wind_direction = metar_data.wind_direction["repr"]
+        wind_speed = "#{metar_data.wind_speed["repr"]}#{metar_data.units["wind_speed"]}"
+        visi = metar_data.visibility["repr"] + "" + metar_data.units["visibility"]
+        wx = metar_data.wx_codes
         sky_conditions = metar_data.clouds  
-        temp_dew_point =  metar_data.temperature["repr"] + " " + metar_data.units["temperature"] + "/" + metar_data.dewpoint["value"].to_s
+        temp_dew_point =  metar_data.temperature["repr"] + "°" + metar_data.units["temperature"] + "/" + metar_data.dewpoint["value"].to_s
         alti = metar_data.altimeter["value"].to_s
         remarks = metar_data.remarks
         
-        #Call Metars Breakdown
-        puts "Station: #{station}"      
-        puts "Time: #{time}" 
-        puts wind
-        puts "Visibility: #{visi}" 
-        if sky_conditions == []
-            puts "Sky Conditions: CLR"
+        #Weather Conditions Check
+        if wx == []
+            wx = "N/A"
+        else
+            wx = metar_data.wx_codes.collect {|x| x["value"]}
+        #    binding.pry
+        end
+         
+        #Sky Conditions Check
+        if  sky_conditions == []
+            sky_conditions = "Clear"
         else  
-            puts "Sky Conditions: #{sky_conditions}" 
+            sky_conditions = metar_data.clouds.collect {|x| x["repr"]}
         end  
-        puts "Temp/Dew Point: #{temp_dew_point}"
-        puts "Altimiter: #{alti}"
-        puts "Remarks: #{remarks}"
         # binding.pry
-      end
+
+        #Call Breakdown Data
+        puts <<-HEREDOC 
+
+     ___Full METARS Breakdown_________________________
+    |
+    |
+    |    Station: #{station}                
+    |    Time: #{time}                      
+    |    Wind Direction: #{wind_direction}                                
+    |    Wind Speed: #{wind_speed}      
+    |    Visibility: #{visi}
+    |    Weather: #{wx}
+    |    Sky Conditions:  #{sky_conditions}                                                              
+    |    Temp/Dew Point: #{temp_dew_point}                                                 
+    |    Altimiter: #{alti}                                                               
+    |    Remarks: #{remarks}                                                               
+    |
+    |_________________________________________________
+          HEREDOC
+      end #/metar_breakdown
     
       def list_airports
         data = API.get_icao_by_location
         station_data = Stations.new(data)
       end
 
-      ## TODO - Create one big Multiline output. 
       def menu
         #What location/airport?
         #METAR, TAF, Station Data?
@@ -96,7 +120,7 @@ class CLI
 
                 HEREDOC
           
-      end
+      end #/menu
     
       ## TODO - Add Colorization
         # TO banner.
