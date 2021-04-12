@@ -10,7 +10,8 @@ AVWX_KEY=[YOUR_KEY_HERE]
 ## METAR
 METAR - METeorological Aerodrome Reports (METARs)
 
-METAR is a format for reporting weather information. A METAR weather report is predominantly used by aircraft pilots, and by meteorologists, who use aggregated METAR information to assist in weather forecasting. Raw METAR is the most common format in the world for the transmission of observational weather data. It is highly standardized through the International Civil Aviation Organization, which allows it to be understood throughout most of the world. - https://en.wikipedia.org/wiki/METAR
+METAR is a format for reporting weather information. A METAR weather report is predominantly used by aircraft pilots, and by meteorologists, who use aggregated METAR information to assist in weather forecasting. Raw METAR is the most common format in the world for the transmission of observational weather data. It is highly standardized through the International Civil Aviation Organization, which allows it to be understood throughout most of the world.
+ - https://en.wikipedia.org/wiki/METAR
 
 
 ## ICAO AIRPORT KEYS

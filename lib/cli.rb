@@ -43,8 +43,10 @@ class CLI
       def breakdown
         print "Would you like to see this broken down? y/N "
         response = gets.strip.downcase
-        if response == "y" || response != 'n' 
+        if response == "y" 
             metar_breakdown
+        elsif response == "n"
+            puts "What would you like to do next?"
         else
             puts "Please try agian"
             breakdown 
