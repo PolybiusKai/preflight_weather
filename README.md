@@ -90,3 +90,11 @@ KPHX = Phoenix, Arizona - Phoenix Sky Harbor Internatinoal
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/PolybiusKai/preflight_weather. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/PolybiusKai/preflight_weather/blob/master/CODE_OF_CONDUCT.md).
+
+## License
+
+This gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+## Code of Conduct
+
+Everyone interacting in the PreFlight Weather CLI project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/PolybiusKai/preflight_weather/blob/master/CODE_OF_CONDUCT.md).
