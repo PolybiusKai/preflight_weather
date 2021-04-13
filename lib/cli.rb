@@ -1,7 +1,7 @@
 #require_relative './env.rb'
 
 class CLI 
-    attr_accessor :data, :metar_data
+    attr_accessor :data, :metar_data, :station_data, :station_state
 
 
     def call 
@@ -16,11 +16,16 @@ class CLI
                 print "Enter ICAO Location: "
                 x = gets.strip.upcase 
                 search_acio_location(x)
+                search_station_by_city(x)
                 puts "\n"
                 get_metar_data
                 menu
-            when "list airports"
-                list_airports
+            when "station"
+                print "Enter ICAO Location: "
+                x = gets.strip.upcase 
+                search_station_by_city(x)
+                puts "\n"
+                list_station_data
             when "help"
                 menu
             end
@@ -30,14 +35,18 @@ class CLI
     def search_acio_location(location)
         API.search_by_icao(location)
     end
+
+    def search_station_by_city(location)
+        API.search_by_city(location)
+    end
     
     def get_metar_data
         @data = API.get_preflight_data
         @metar_data = PreFlight.new(data)
         raw = metar_data.raw.light_blue
         puts "METARs => #{raw}\n\n"
-        #binding.pry
         breakdown
+        breakdown_2
     end #/get_metar_data
 
     def breakdown
@@ -50,6 +59,19 @@ class CLI
         else
             puts "Please try agian"
             breakdown 
+        end
+    end
+
+    def breakdown_2
+        print "\n\nWould you like to see the Airport Info? y/N "
+        response= gets.strip.downcase
+        if response == "y" 
+            list_station_data
+        elsif response == "n"
+            puts "What would you like to do next?"
+        else
+            puts "Please try agian"
+            breakdown_2 
         end
     end
       
@@ -78,7 +100,7 @@ class CLI
      ___Full METARS Breakdown_________________________
     |
     |
-    |    Station: #{station.light_blue}                
+    |    Station: #{station.light_blue} - #{list_airport_name.blue}            
     |    Time: #{time.light_blue}                      
     |    Wind Direction: #{wind_direction.light_blue}                                
     |    Wind Speed: #{wind_speed.light_blue}      
@@ -93,9 +115,42 @@ class CLI
           HEREDOC
     end #/metar_breakdown
     
-    def list_airports
+    def list_airport_name
         data = API.get_icao_by_location
-        station_data = Stations.new(data)
+        @station_data = Stations.new(data)
+        state = station_data.state
+        puts station_data.name + state
+        station_data.name + ", " + state
+    end
+
+    def list_station_data
+        data = API.get_icao_by_location
+        @station_data = Stations.new(data)
+        station_name = station_data.name
+        station_icao = station_data.icao
+        station_city = station_data.city
+        @station_state = station_data.state
+        station_latitude = station_data.latitude.to_s
+        station_longitude = station_data.longitude.to_s
+        station_type = station_data.type 
+        station_website = station_data.website
+
+        puts <<-HEREDOC
+
+        ___Full Station Breakdown_________________________
+       |
+       |
+       |    Station:     #{station_icao.light_blue} - #{station_name.light_blue}              
+       |    City:        #{station_city.light_blue} 
+       |    State:       #{station_state.light_blue}                    
+       |    Latitude:    #{station_latitude.light_blue}                         
+       |    Longitude:   #{station_longitude.light_blue}       
+       |    Website:     #{station_website.light_blue}
+       |    Runway Type: #{station_type.light_blue}                                                             
+       |                                                    
+       |_________________________________________________
+
+             HEREDOC
     end
 
     def menu

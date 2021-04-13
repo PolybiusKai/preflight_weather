@@ -3,3 +3,4 @@ require_relative '../lib/env.rb'
 
 CLI.welcome_msg
 CLI.new.call
+

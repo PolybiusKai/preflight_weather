@@ -17,17 +17,15 @@ class API
        preflight_data 
     end
 
-    ## TODO - Get working::After PreFlight Data. 
-        # Iterate to make each airport an object with atributes. 
     def self.get_icao_by_location
-        ## Does Search by ICAO Location need to be in it's own API Class, or can it stay here?
+        #:city, :icao, :latitude, :longitude, :name, :state, :type, :website
         res = RestClient.get "https://avwx.rest/api/search/station?text=#{@city}", {:Authorization => ENV["AVWX_KEY"]}
         station_data = parse_json(res.body)
+        station_data[0]
         #station_data[0]["icao"] => "KLAS"
         #station_data[0]["name"]
-        
-        icao_data = Stations.new(station_data[0])
-        #binding.pry
+        # icao_data = Stations.new(station_data)
+        # 
     end
 
     def self.get_station_data

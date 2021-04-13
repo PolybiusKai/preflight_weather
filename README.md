@@ -1,7 +1,24 @@
 ## Preflight Weather CLI 
-Welcome to the Preflight Weather CLI! This CLI will give you access to a pilots preflight weather METARs readings. You can access this by using an Airports ICAO code (more on that below). The main reading is in the traditional METARs reading and can be broken down for easier reading. /// 
- 
-Once the program has started you will be prompted to enter your name followed by a greeting and a list of menu items. These menu items will be how you can access the different types of data ie METARs data, Station data and a list of Airports. If you at any time forget your way, you can always type 'help' to bring the menu back. 
+Welcome to the Preflight Weather CLI! This CLI will give you access to a pilots preflight weather METARs readings. You can access this by using an Airports ICAO code (more on that below). The main reading is in the traditional METARs reading and can be broken down for easier reading. 
+
+## Installation
+Add this line to your application's Gemfile:
+```
+gem 'preflight'
+```
+And then execute:
+````
+$ bundle install
+````
+Or install it yourself as:
+```
+$ gem install preflight
+
+To run the program:
+ruby bin/run
+```
+## Usage 
+Once the program has started you will be prompted to enter your name followed by a greeting and a list of menu items. These menu items will be how you can access the different types of data ie METARs data. If you at any time forget your way, you can always type 'help' to bring the menu back. 
  
 ```
 >> help
@@ -27,17 +44,7 @@ The METARs data will show you a string of weather information that's usually in 
     |    Remarks: RMK AO2 SLP028 T02611106 
 ```
  
-The Stations data will show you any information about a selected Airport by using its specified ICAP Code. 
-```
-::Under Construction::
- 
-```
- 
-The list of airports will display the name of the Airport along with its ICAO code and city. 
-```
-::Under Construction::
- 
-```
+
  
 ## In order to use this App.
 Please get an API Key from AVWX at https://avwx.rest/ and create a new .env file with the following key:
