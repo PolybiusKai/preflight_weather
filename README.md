@@ -44,7 +44,7 @@ The METARs data will show you a string of weather information that's usually in 
     |    Remarks: RMK AO2 SLP028 T02611106 
 ```
 
- The Stations data will output a list of Airports stations data. 
+ The Stations data will output a list of Airports stations data. There is also a prompet for this after a METARs Weather selection.
  ```
        |    Station:      KSFO - San Francisco International Airport              
        |    City:         San Francisco 
