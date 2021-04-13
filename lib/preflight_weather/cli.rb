@@ -115,7 +115,7 @@ class CLI
     end #/metar_breakdown
     
     def list_airport_name
-        data = API.get_icao_by_location
+        data = API.get_station_by_icao
         @station_data = Stations.new(data)
         state = station_data.state
         puts station_data.name + state
@@ -123,7 +123,7 @@ class CLI
     end
 
     def list_station_data
-        data = API.get_icao_by_location
+        data = API.get_station_by_icao
         @station_data = Stations.new(data)
         station_name = station_data.name
         station_icao = station_data.icao
