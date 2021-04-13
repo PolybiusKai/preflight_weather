@@ -35,7 +35,7 @@ class CLI
         @data = API.get_preflight_data
         @metar_data = PreFlight.new(data)
         raw = metar_data.raw
-        puts "METAR => #{raw}\n\n" 
+        puts "METARs => #{raw}\n\n" 
         #binding.pry
         breakdown
       end #/get_metar_data
@@ -67,20 +67,10 @@ class CLI
         remarks = metar_data.remarks
         
         #Weather Conditions Check
-        if wx == []
-            wx = "N/A"
-        else
-            wx = metar_data.wx_codes.collect {|x| x["value"]}
-        #    binding.pry
-        end
+        wx == [] ? wx = "N/A" : wx = metar_data.wx_codes.collect {|x| x["value"]}
          
         #Sky Conditions Check
-        if  sky_conditions == []
-            sky_conditions = "Clear"
-        else  
-            sky_conditions = metar_data.clouds.collect {|x| x["repr"]}
-        end  
-        # binding.pry
+        sky_conditions == [] ? sky_conditions = "Clear" : sky_conditions = metar_data.clouds.collect {|x| x["repr"]}
 
         #Call Breakdown Data
         puts <<-HEREDOC 
@@ -115,7 +105,7 @@ class CLI
         puts <<-HEREDOC    
 
 
-              [#]  To see METAR Weather Data   - 'metar'.
+              [#]  To see METARs Weather Data   - 'metar'.
               [#]  For Help Menu               - 'help'.
               [#]  To Exit The App             - 'exit'.
 
