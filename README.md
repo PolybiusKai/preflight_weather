@@ -29,7 +29,7 @@ Once the program has started you will be prompted to enter your name followed by
               [#]  To Exit The App              - 'exit'.
 ```
  
-The METARs data will show you a string of weather information that's usually in a format that pilots will understand ie - METARs => KLAS 130356Z 04003KT 10SM FEW250 26/M11 A2968 RMK AO2 SLP028 T02611106. Once this displays you will be asked if you would like it broken down to a simplified format. 
+The METARs data will show you a string of weather information that's usually in a format that pilots will understand ie - METARs => KLAS 130356Z 04003KT 10SM FEW250 26/M11 A2968 RMK AO2 SLP028 T02611106. Once this displays you will be asked if you would like it broken down to a simplified format. (Shown below.)
  
 ```
     |    Station: KLAS                
