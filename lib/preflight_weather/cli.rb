@@ -1,4 +1,3 @@
-#require_relative './env.rb'
 
 class CLI 
     attr_accessor :data, :metar_data, :station_data, :station_state

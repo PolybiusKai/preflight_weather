@@ -1,5 +1,3 @@
-#https://avwx.rest/api/search/station?text=lihue%20hi - station search
-## What does API::PreFlight mean and do?
 class API
     attr_accessor :icao, :city#, :data
     
