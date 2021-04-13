@@ -18,7 +18,7 @@ To run the program:
 ruby bin/run
 ```
 ## Usage 
-Once the program has started you will be prompted to enter your name followed by a greeting and a list of menu items. These menu items will be how you can access the different types of data ie METARs data. If you at any time forget your way, you can always type 'help' to bring the menu back. 
+Once the program has started you will be prompted to enter your name followed by a greeting and a list of menu items. These menu items will be how you can access the different types of data ie METARs data and Stations data; all found by its ICAO Code. If you at any time forget your way, you can always type 'help' to bring the menu back. 
  
 ```
 >> help
@@ -43,7 +43,17 @@ The METARs data will show you a string of weather information that's usually in 
     |    Altimeter: 29.68                                                               
     |    Remarks: RMK AO2 SLP028 T02611106 
 ```
- 
+
+ The Stations data will output a list of Airports stations data. 
+ ```
+       |    Station:      KSFO - San Francisco International Airport              
+       |    City:         San Francisco 
+       |    State:        CA                    
+       |    Latitude:     37.61899948120117                         
+       |    Longitude:    -122.375       
+       |    Website:      http://www.flysfo.com/
+       |    Runway Type:  large_airport
+ ```
 
  
 ## In order to use this App.
