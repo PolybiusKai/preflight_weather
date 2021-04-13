@@ -106,8 +106,10 @@ class CLI
 
 
               [#]  To see METARs Weather Data   - 'metar'.
-              [#]  For Help Menu               - 'help'.
-              [#]  To Exit The App             - 'exit'.
+              [#]  To see Station Data          - 'station'.
+              [#]  To see a List of Airports    - 'list'.
+              [#]  For Help Menu                - 'help'.
+              [#]  To Exit The App              - 'exit'.
 
 
                 HEREDOC
