@@ -1,8 +1,6 @@
 
 class CLI 
     attr_accessor :data, :metar_data, :station_data, :station_state
-#ident,type,name,elevation_ft,continent,iso_country,iso_region,municipality,gps_code,iata_code,local_code,coordinates
-
 
     def call 
         input = ""
@@ -13,17 +11,13 @@ class CLI
             
             case input
             when "metar"
-                print "Enter ICAO Location: "
-                x = gets.strip.upcase 
-                search_acio_location(x)
-                puts "\n"
+                locate
                 get_metar_data
+                breakdown
+                airport_info
                 menu
             when "station"
-                print "Enter ICAO Location: "
-                x = gets.strip.upcase 
-                search_acio_location(x)
-                puts "\n"
+                locate
                 list_station_data
             when "list"
                 puts "\n"
@@ -37,15 +31,18 @@ class CLI
     def search_acio_location(location)
         API.search_by_icao(location)
     end
+
+    def locate 
+        print "Enter ICAO Location: "
+        x = gets.strip.upcase 
+        x.length != 4 ? locate : x[0] != "K" ? locate : search_acio_location(x) 
+    end
     
     def get_metar_data
-        # @data = API.get_preflight_data
         @data = API.get_preflight_data
         @metar_data = PreFlight.new(data)
         raw = metar_data.raw.light_blue
         puts "METARs => #{raw}\n\n"
-        breakdown
-        breakdown_2
     end #/get_metar_data
 
     def breakdown
@@ -54,14 +51,14 @@ class CLI
         if response == "y" 
             metar_breakdown
         elsif response == "n"
-            puts "What would you like to do next?"
+            
         else
             puts "Please try agian"
             breakdown 
         end
     end
 
-    def breakdown_2
+    def airport_info
         print "\n\nWould you like to see the Airport Info? y/N "
         response= gets.strip.downcase
         if response == "y" 
@@ -70,12 +67,12 @@ class CLI
             puts "What would you like to do next?"
         else
             puts "Please try agian"
-            breakdown_2 
+            airport_info 
         end
     end
       
     def metar_breakdown
-        #Metars Breakdown Data
+        #METARs Breakdown Data
         station = metar_data.station 
         time =  metar_data.time["dt"] 
         wind_direction = metar_data.wind_direction["repr"]  
@@ -92,7 +89,7 @@ class CLI
          
         #Sky Conditions Check
         sky_conditions == [] ? sky_conditions = "Clear".light_blue : sky_conditions = metar_data.clouds.collect {|x| x["repr"]}
-
+        
         #Call Breakdown Data
         puts <<-HEREDOC
 
@@ -105,7 +102,7 @@ class CLI
     |    Wind Speed: #{wind_speed.light_blue}      
     |    Visibility: #{visi.light_blue}
     |    Weather: #{wx}
-    |    Sky Conditions:  #{sky_conditions[0].light_blue} #{sky_conditions[1]} #{sky_conditions[2]}                                                         
+    |    Sky Conditions:  #{sky_conditions}                                                         
     |    Temp/Dew Point: #{temp_dew_point.light_blue}                                                 
     |    Altimiter: #{alti.light_blue}                                                               
     |    Remarks: #{remarks.light_blue}                                                               
