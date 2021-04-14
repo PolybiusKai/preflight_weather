@@ -129,7 +129,7 @@ class CLI
         station_longitude = station_data.longitude.to_s
         station_type = station_data.type 
         station_website = station_data.website
-
+        station_website == nil ? station_website = "N/A".light_blue  : station_website = station_data.website.light_blue 
         puts <<-HEREDOC
 
         ___Full Station Breakdown_________________________
@@ -140,7 +140,7 @@ class CLI
        |    State:       #{station_state.light_blue}                    
        |    Latitude:    #{station_latitude.light_blue}                         
        |    Longitude:   #{station_longitude.light_blue}       
-       |    Website:     #{station_website.light_blue}
+       |    Website:     #{station_website}
        |    Runway Type: #{station_type.light_blue}                                                             
        |                                                    
        |_________________________________________________
