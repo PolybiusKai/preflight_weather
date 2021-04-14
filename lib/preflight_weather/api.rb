@@ -1,12 +1,8 @@
 class API
-    attr_accessor :icao, :city#, :data
-    
+    attr_accessor :icao
+
     def self.search_by_icao(icao)
         @icao = icao 
-    end
-
-    def self.search_by_city(city)
-        @city = city 
     end
 
     def self.get_preflight_data
@@ -16,7 +12,7 @@ class API
     end
 
     def self.get_station_by_icao
-        res = RestClient.get "https://avwx.rest/api/search/station?text=#{@city}", {:Authorization => ENV["AVWX_KEY"]}
+        res = RestClient.get "https://avwx.rest/api/search/station?text=#{@icao}", {:Authorization => ENV["AVWX_KEY"]}
         station_data = parse_json(res.body)
         station_data[0]
     end

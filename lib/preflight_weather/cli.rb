@@ -1,6 +1,7 @@
 
 class CLI 
     attr_accessor :data, :metar_data, :station_data, :station_state
+#ident,type,name,elevation_ft,continent,iso_country,iso_region,municipality,gps_code,iata_code,local_code,coordinates
 
 
     def call 
@@ -15,16 +16,18 @@ class CLI
                 print "Enter ICAO Location: "
                 x = gets.strip.upcase 
                 search_acio_location(x)
-                search_station_by_city(x)
                 puts "\n"
                 get_metar_data
                 menu
             when "station"
                 print "Enter ICAO Location: "
                 x = gets.strip.upcase 
-                search_station_by_city(x)
+                search_acio_location(x)
                 puts "\n"
                 list_station_data
+            when "list"
+                puts "\n"
+                icao_list
             when "help"
                 menu
             end
@@ -34,12 +37,9 @@ class CLI
     def search_acio_location(location)
         API.search_by_icao(location)
     end
-
-    def search_station_by_city(location)
-        API.search_by_city(location)
-    end
     
     def get_metar_data
+        # @data = API.get_preflight_data
         @data = API.get_preflight_data
         @metar_data = PreFlight.new(data)
         raw = metar_data.raw.light_blue
@@ -82,7 +82,7 @@ class CLI
         wind_speed = "#{metar_data.wind_speed["repr"]}#{metar_data.units["wind_speed"]}"
         visi = metar_data.visibility["repr"] + "" + metar_data.units["visibility"]
         wx = metar_data.wx_codes
-        sky_conditions = metar_data.clouds  
+        sky_conditions = metar_data.clouds
         temp_dew_point =  metar_data.temperature["repr"] + "°" + metar_data.units["temperature"] + "/" + metar_data.dewpoint["value"].to_s
         alti = metar_data.altimeter["value"].to_s
         remarks = metar_data.remarks
@@ -96,16 +96,16 @@ class CLI
         #Call Breakdown Data
         puts <<-HEREDOC
 
-     ___Full METARS Breakdown_________________________
+     ___Full METARs Breakdown_________________________
     |
     |
-    |    Station: #{station.light_blue} - #{list_airport_name.blue}            
+    |    Station: #{station.light_blue} - #{list_airport_name.light_blue}            
     |    Time: #{time.light_blue}                      
     |    Wind Direction: #{wind_direction.light_blue}                                
     |    Wind Speed: #{wind_speed.light_blue}      
     |    Visibility: #{visi.light_blue}
     |    Weather: #{wx}
-    |    Sky Conditions:  #{sky_conditions}                                                              
+    |    Sky Conditions:  #{sky_conditions[0].light_blue} #{sky_conditions[1]} #{sky_conditions[2]}                                                         
     |    Temp/Dew Point: #{temp_dew_point.light_blue}                                                 
     |    Altimiter: #{alti.light_blue}                                                               
     |    Remarks: #{remarks.light_blue}                                                               
@@ -118,7 +118,6 @@ class CLI
         data = API.get_station_by_icao
         @station_data = Stations.new(data)
         state = station_data.state
-        puts station_data.name + state
         station_data.name + ", " + state
     end
 
@@ -152,10 +151,15 @@ class CLI
              HEREDOC
     end
 
+    def icao_list
+        table = CSV.parse(File.read("airport_data.csv"), headers: true)
+        table.each_with_index {|icao, i| puts "#{i + 1}. #{icao[0].light_blue} - #{icao[1]}"}
+        puts "\n"
+    end
+
     def menu
-        #What location/airport?
-        #METAR, TAF, Station Data?
-        #List All Common Stations?
+        #TAF?
+        #List top 50 Stations?
         puts <<-HEREDOC.green    
 
 
