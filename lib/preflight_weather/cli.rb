@@ -35,7 +35,10 @@ class CLI
     def locate 
         print "Enter ICAO Location: "
         x = gets.strip.upcase 
-        x.length != 4 ? locate : x[0] != "K" ? locate : search_acio_location(x) 
+        if x == "EXIT"
+            exit 
+        end
+        x.length != 4 ? locate : x[0] != "K" ? locate : search_acio_location(x)
     end
     
     def get_metar_data
@@ -52,6 +55,8 @@ class CLI
             metar_breakdown
         elsif response == "n"
             
+        elsif response == "exit"
+            exit
         else
             puts "Please try agian"
             breakdown 
@@ -65,6 +70,8 @@ class CLI
             list_station_data
         elsif response == "n"
             puts "What would you like to do next?"
+        elsif response == "exit"
+            exit
         else
             puts "Please try agian"
             airport_info 
@@ -102,7 +109,7 @@ class CLI
     |    Wind Speed: #{wind_speed.light_blue}      
     |    Visibility: #{visi.light_blue}
     |    Weather: #{wx}
-    |    Sky Conditions:  #{sky_conditions}                                                         
+    |    Sky Conditions:  #{sky_conditions.join(" ").light_blue}                                                         
     |    Temp/Dew Point: #{temp_dew_point.light_blue}                                                 
     |    Altimiter: #{alti.light_blue}                                                               
     |    Remarks: #{remarks.light_blue}                                                               
