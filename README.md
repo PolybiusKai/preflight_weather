@@ -54,7 +54,21 @@ The METARs data will show you a string of weather information that's usually in 
        |    Website:      http://www.flysfo.com/
        |    Runway Type:  large_airport
  ```
+The last thing you are able to is to call up a list of ICAOs wich are called from a .csv file. This file is pre-loaded with 30 different and most common Airports. 
 
+```
+1. KATL - Hartsfield-Jackson International Airport
+2. KDFW - Dallas/Fort Worth International Airport
+3. KDEN - Denver International Airport
+4. KORD - O'Hare International Airport
+5. KLAX - Los Angeles International Airport
+6. KCLT - Charlotte Douglas International Airport
+7. KIAH  - George Bush Intercontinental Airport
+8. KPHX - Phoenix Sky Harbor International Airport
+9. KMCO - Orlando International Airport
+10. KSEA - Seattle–Tacoma International Airport
+...
+```
  
 ## In order to use this App.
 Please get an API Key from AVWX at https://avwx.rest/ and create a new .env file with the following key:
