@@ -1,7 +1,7 @@
 
 class CLI 
     attr_accessor :data, :metar_data, :station_data, :station_state
-
+    
     def call 
         input = ""
         menu
@@ -33,14 +33,19 @@ class CLI
     end
 
     def locate 
-        print "Enter ICAO Location: "
+        print "\nEnter ICAO Location: "
         x = gets.strip.upcase 
         if x == "EXIT"
             exit 
         end
-        x.length != 4 ? locate : x[0] != "K" ? locate : search_acio_location(x)
+        x.length != 4 ? oops : x[0] != "K" ? oops : search_acio_location(x)
     end
     
+    def oops
+        puts "\nOpps, you've entered something wrong\nPlease try again!\n"
+        locate 
+    end
+
     def get_metar_data
         @data = API.get_preflight_data
         @metar_data = PreFlight.new(data)
@@ -71,7 +76,7 @@ class CLI
         elsif response == "n"
             puts "What would you like to do next?"
         elsif response == "exit"
-            exit
+            exit 
         else
             puts "Please try agian"
             airport_info 
@@ -92,7 +97,7 @@ class CLI
         remarks = metar_data.remarks
         
         #Weather Conditions Check
-        wx == [] ? wx = "Clear".light_blue : wx = metar_data.wx_codes.collect {|x| x["value"]}
+        wx == [] ? wx = "Clear".light_blue : wx = metar_data.wx_codes.collect {|x| x["value"]}.join(" ").light_blue
          
         #Sky Conditions Check
         sky_conditions == [] ? sky_conditions = "Clear".light_blue : sky_conditions = metar_data.clouds.collect {|x| x["repr"]}.join(" ").light_blue
