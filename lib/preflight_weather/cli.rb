@@ -95,8 +95,13 @@ class CLI
         wx == [] ? wx = "Clear".light_blue : wx = metar_data.wx_codes.collect {|x| x["value"]}
          
         #Sky Conditions Check
-        sky_conditions == [] ? sky_conditions = "Clear".light_blue : sky_conditions = metar_data.clouds.collect {|x| x["repr"]}
-        
+        sky_conditions == [] ? sky_conditions = "Clear".light_blue : sky_conditions = metar_data.clouds.collect {|x| x["repr"]}.join(" ").light_blue
+        # if sky_conditions == []
+        #     sky_conditions = "Clear".light_blue
+        # else 
+        #     sky_conditions = metar_data.clouds.collect {|x| x["repr"]}
+        # end
+
         #Call Breakdown Data
         puts <<-HEREDOC
 
@@ -109,7 +114,7 @@ class CLI
     |    Wind Speed: #{wind_speed.light_blue}      
     |    Visibility: #{visi.light_blue}
     |    Weather: #{wx}
-    |    Sky Conditions:  #{sky_conditions.join(" ").light_blue}                                                         
+    |    Sky Conditions:  #{sky_conditions}                                                         
     |    Temp/Dew Point: #{temp_dew_point.light_blue}                                                 
     |    Altimiter: #{alti.light_blue}                                                               
     |    Remarks: #{remarks.light_blue}                                                               
