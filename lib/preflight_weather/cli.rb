@@ -96,11 +96,6 @@ class CLI
          
         #Sky Conditions Check
         sky_conditions == [] ? sky_conditions = "Clear".light_blue : sky_conditions = metar_data.clouds.collect {|x| x["repr"]}.join(" ").light_blue
-        # if sky_conditions == []
-        #     sky_conditions = "Clear".light_blue
-        # else 
-        #     sky_conditions = metar_data.clouds.collect {|x| x["repr"]}
-        # end
 
         #Call Breakdown Data
         puts <<-HEREDOC
