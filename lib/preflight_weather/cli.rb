@@ -167,11 +167,11 @@ class CLI
         puts <<-HEREDOC.green    
 
 
-              [#]  To see METARs Weather Data   - 'metar'.
-              [#]  To see Station Data          - 'station'.
-              [#]  To see a List of Airports    - 'list'.
-              [#]  For Help Menu                - 'help'.
-              [#]  To Exit The App              - 'exit'.
+              [#]  To see METARs Weather Data     - 'metar'.
+              [#]  To see Station Data            - 'station'.
+              [#]  To see a List of Airports      - 'list'.
+              [#]  For Help Menu                  - 'help'.
+              [#]  To Exit The App at any time    - 'exit'.
 
 
                 HEREDOC
