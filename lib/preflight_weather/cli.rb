@@ -33,6 +33,7 @@ class CLI
     end
 
     def locate 
+        #TODO: Fix err if cant find the right ICAO Code : If wrong one is entered, error will be raised. 
         print "\nEnter ICAO Location: "
         x = gets.strip.upcase 
         if x == "EXIT"
@@ -108,16 +109,16 @@ class CLI
      ___Full METARs Breakdown_________________________
     |
     |
-    |    Station: #{station.light_blue} - #{list_airport_name.light_blue}            
-    |    Time: #{time.light_blue}                      
-    |    Wind Direction: #{wind_direction.light_blue}                                
-    |    Wind Speed: #{wind_speed.light_blue}      
-    |    Visibility: #{visi.light_blue}
-    |    Weather: #{wx}
+    |    Station:         #{station.light_blue} - #{list_airport_name.light_blue}            
+    |    Time:            #{time.light_blue}                      
+    |    Wind Direction:  #{wind_direction.light_blue}                                
+    |    Wind Speed:      #{wind_speed.light_blue}      
+    |    Visibility:      #{visi.light_blue}
+    |    Weather:         #{wx}
     |    Sky Conditions:  #{sky_conditions}                                                         
-    |    Temp/Dew Point: #{temp_dew_point.light_blue}                                                 
-    |    Altimiter: #{alti.light_blue}                                                               
-    |    Remarks: #{remarks.light_blue}                                                               
+    |    Temp/Dew Point:  #{temp_dew_point.light_blue}                                                 
+    |    Altimiter:       #{alti.light_blue}                                                               
+    |    Remarks:         #{remarks.light_blue}                                                               
     |
     |_________________________________________________
           HEREDOC
@@ -144,18 +145,18 @@ class CLI
         station_website == nil ? station_website = "N/A".light_blue  : station_website = station_data.website.light_blue 
         puts <<-HEREDOC
 
-        ___Full Station Breakdown_________________________
-       |
-       |
-       |    Station:     #{station_icao.light_blue} - #{station_name.light_blue}              
-       |    City:        #{station_city.light_blue} 
-       |    State:       #{station_state.light_blue}                    
-       |    Latitude:    #{station_latitude.light_blue}                         
-       |    Longitude:   #{station_longitude.light_blue}       
-       |    Website:     #{station_website}
-       |    Runway Type: #{station_type.light_blue}                                                             
-       |                                                    
-       |_________________________________________________
+     ___Full Station Breakdown_________________________
+    |
+    |
+    |    Station:     #{station_icao.light_blue} - #{station_name.light_blue}              
+    |    City:        #{station_city.light_blue} 
+    |    State:       #{station_state.light_blue}                    
+    |    Latitude:    #{station_latitude.light_blue}                         
+    |    Longitude:   #{station_longitude.light_blue}       
+    |    Website:     #{station_website}
+    |    Runway Type: #{station_type.light_blue}                                                             
+    |                                                    
+    |_________________________________________________
 
              HEREDOC
     end
